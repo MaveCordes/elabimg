@@ -219,7 +219,7 @@ COPY ./src/php/elabpool.conf /etc/php81/php-fpm.d/elabpool.conf
 
 # ELABFTW
 # get the tar archive for the tagged version/branch we want
-ADD https://github.com/elabftw/elabftw/tarball/$ELABFTW_VERSION src.tgz
+ADD https://github.com/MaveCordes/elabftw/tarball/$ELABFTW_VERSION src.tgz
 # extracted folder will be named elabftw-elabftw-0abcdef
 # we only copy the strict necessary
 RUN tar xzf src.tgz && mv elabftw-* src \
