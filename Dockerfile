@@ -110,14 +110,14 @@ FROM alpine:3.16
 # this is versioning for the container image
 ENV ELABIMG_VERSION=4.1.0
 
-# the target elabftw version is passed with --build-arg
+# the target welabftw version is passed with --build-arg
 # it is a mandatory ARG
-ARG ELABFTW_VERSION
+ARG ELABFTW_VERSION=0.0.1
 
 LABEL net.elabftw.name="elabftw" \
     net.elabftw.description="Run nginx and php-fpm to serve elabftw" \
     net.elabftw.url="https://www.elabftw.net" \
-    net.elabftw.vcs-url="https://github.com/elabftw/elabimg" \
+    net.elabftw.vcs-url="https://github.com/MaveCordes/elabimg" \
     net.elabftw.elabftw-version=$ELABFTW_VERSION \
     net.elabftw.image-version=$ELABIMG_VERSION
 
@@ -217,12 +217,12 @@ COPY ./src/php/php-fpm.conf /etc/php81/php-fpm.conf
 COPY ./src/php/elabpool.conf /etc/php81/php-fpm.d/elabpool.conf
 # END PHP
 
-# ELABFTW
+
 # get the tar archive for the tagged version/branch we want
 ADD https://github.com/MaveCordes/elabftw/tarball/$ELABFTW_VERSION src.tgz
 # extracted folder will be named elabftw-elabftw-0abcdef
 # we only copy the strict necessary
-RUN tar xzf src.tgz && mv elabftw-* src \
+RUN tar xzf src.tgz && mv MaveCordes-* src \
     && mkdir /elabftw \
     && mv src/bin /elabftw \
     && mv src/builder.js /elabftw \
@@ -236,6 +236,7 @@ RUN tar xzf src.tgz && mv elabftw-* src \
     && rm -r src src.tgz
 
 WORKDIR /elabftw
+
 
 # COMPOSER
 ENV COMPOSER_HOME=/composer
