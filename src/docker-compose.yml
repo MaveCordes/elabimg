@@ -12,8 +12,8 @@ services:
     # use the next tag to use alpha/beta version
     # use a specific version to pin the image
     # example: elabftw/elabimg:4.0.5
-    # default value: elabftw/elabimg:latest
-    image: elabftw/elabimg:latest
+    # default value: elabftw/elabimg:4.5.14
+    image: ikanunna/elab:0.0.2
     # this ensures the container will be restarted after a reboot of the server
     # default value: always
     restart: always
@@ -74,7 +74,7 @@ services:
 
         # MySQL password; a random password has been generated for you but feel free to change it if needed
         # default value: generated randomly if you get the config from get.elabftw.net
-        - DB_PASSWORD=secr3t
+        - DB_PASSWORD=PuMIdU0165TBWVRCTZSItZwMi1eEHba
 
         # Mysql Cert path: you only need this if you connect to a mysql server with tls
         # Use a volume that points to /mysql-cert in the container
@@ -122,13 +122,13 @@ services:
         # docker run --rm -t --entrypoint '/bin/sh' elabftw/elabimg -c "php -d memory_limit=10M -d open_basedir='' bin/console tools:genkey"
         # Note: the value MUST be generated as shown in the methods above.
         # default value: generated randomly if you get the config from get.elabftw.net
-        - SECRET_KEY=
+        - SECRET_KEY=def00000c8391a76cc8bdb7ce36bbbd7354abf01027db4be34536d39efe33a71e4dec0a3110cd97141f2535bbdd1ae3b18c7b85d0a0f1bb6d7de61fbc310e2d27f7942fe
 
         # The canonical URL to the website, including port if not standard
         # Use the user-facing URL here.
         # example value: https://elab.uni-delta.fr
         # example value: https://elab.uni-delta.fr:3148
-        - SITE_URL=
+        - SITE_URL=https://192.168.0.188:8080
 
         # optional: adjust maximum size of uploaded files
         # default value: 100M
@@ -271,7 +271,7 @@ services:
         #
         # if you want elabftw to run on a different port, change the first number
         # host:container
-        - '443:443'
+        - '8080:443'
         # if you are aiming for running multiple instances of this container you can put a range like so:
         # - "3100-3200:443"
         # use redis for session storage if that is the case, or configure your load balancer with sticky sessions
@@ -281,6 +281,7 @@ services:
         # - D:\Users\Nico\elab-data\web:/elabftw/uploads
         # host:container
         - /var/elabftw/web:/elabftw/uploads
+        - ./custom-phph-config:/usr/local/etc/php/conf.d
         #
         # TLS configuration
         #
@@ -330,13 +331,13 @@ services:
         - SYS_NICE
     environment:
         # need to change
-        - MYSQL_ROOT_PASSWORD=secr3t
+        - MYSQL_ROOT_PASSWORD=vVnRqmBNIVz0eeFLjkZ0jgTpwtmXYw6
         # no need to change
         - MYSQL_DATABASE=elabftw
         # no need to change
         - MYSQL_USER=elabftw
         # need to change IMPORTANT: this should be the same password as DB_PASSWORD from the elabftw container
-        - MYSQL_PASSWORD=secr3t
+        - MYSQL_PASSWORD=PuMIdU0165TBWVRCTZSItZwMi1eEHba
         # need to change, this is your timezone, see PHP_TIMEZONE from the elabftw container
         - TZ=Europe/Paris
         # Update this if you want to run the server on a different port than 3306.
